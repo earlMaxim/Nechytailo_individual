@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
+ 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/headerFooter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 
     <title>Document</title>
 </head>
 <body>
+
     <div class="body-wrap">
         <header class="main-header">
             <div class="header-top">
@@ -20,6 +23,12 @@
                 </div>
             </div>
             <div class="header-bottom">
+                <div class="menu__icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
                 <div class="menu">
                     <ul>
                         <li><a href="">Women</a></li>
@@ -38,12 +47,67 @@
                 </div>
             </div>
         </header>
-        <div class="main">
+    </div>
 
+
+        <div class="main">
+            <!-- promoblock -->
+            <div class="promoblock">
+                <a href="" class="promoLeft">
+                <!-- <div class="promoLeft"> -->
+                        <img src="img/promoleft.png" alt="Nike Red">
+                <!-- </div> -->
+                 </a>
+                <!-- <div class="promoRight"> -->
+                    <a href="" class="promoRight">
+                        <img src="img/promoright.png" alt="Caps & Hats">
+                    </a>
+                <!-- </div> -->
+            </div>
+            <!-- main content -->
+            <div class="body-wrap">
+                <div class="bestoffer">
+                    <div class="bestoffer-text">
+                        <div class="bestoffer-text-bold">Best offer</div>
+                        <div class="bestoffer-text-italic">This offer is valid in-store and online. Prices displayed reflect this additional discount. This offer ends at 11:59 GMT on March 1st 2019</div>
+                    </div>
+
+
+                    <div class="bestoffer-main">
+                        <div class="item">
+                            <div class="arrow_Up"><i class="fas fa-chevron-up"></i></div>
+                            <div class="item-img"><img src="" alt=""></div>
+                            <div class="item-name"></div>
+                            <div class="item-price"></div>
+                            <div class="item-id"></div>
+                            <div class="item-bestOffer-left"></div>
+                            <div class="arrow_Down"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="symbolPlus">+</div>
+                        <div class="item">
+                            <div class="arrow_Up"><i class="fas fa-chevron-up"></i></div>
+                            <div class="item-img"><img src="" alt=""></div>
+                            <div class="item-name"></div>
+                            <div class="item-price"></div>
+                            <div class="item-id"></div>
+                            <div class="item-bestOffer-right"></div>
+                            <div class="arrow_Down"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="symbolEqual">=</div>
+                        <div class="bestoffer-tottal">£<div class="bestoffer-tottal-old">£</div></div>
+                        <div class="btn_AddToBag">Add to bag</div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
         <div class="footer">
 
         </div>
-    </div>
+        <script src="data/best-offer.js"></script>
+        <script src="data/catalog.js"></script>
+        <script src="js/function.js"></script>
+
 </body>
 </html>
