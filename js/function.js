@@ -11,6 +11,7 @@ if(!localStorage.getItem("bestOffer")) {
 
 //default functions
 renderBestOffer()
+renderNewArrivals()
 
 // Variebles
 let bestOffer_changePhotoUp_v     = document.querySelectorAll('.arrow_Up')
@@ -152,6 +153,25 @@ function renderBestOffer(){
     itemRight.querySelector('.item-name').innerHTML = rightData.title
     itemLeft.querySelector('.item-price').innerHTML = `£${leftData.price}`
     itemRight.querySelector('.item-price').innerHTML = `£${rightData.price}`
+    //label new
+    if (itemLeft.querySelector('.label_new')){
+        itemLeft.querySelector('.label_new').remove()
+    }
+    if (itemRight.querySelector('.label_new')){
+        itemRight.querySelector('.label_new').remove()
+    }
+    if(leftData.hasNew == true){
+        let lebelNew = document.createElement('div')
+        lebelNew.classList.add('label_new')
+        lebelNew.innerHTML='NEW'
+        itemLeftPhoto.before(lebelNew)
+    }
+    if(rightData.hasNew == true){
+        let lebelNew = document.createElement('div')
+        lebelNew.classList.add('.label_new')
+        lebelNew.innerHTML='NEW'
+        itemRightPhoto.before(lebelNew)
+    }
     //set total price
     total.firstChild.textContent    = `£${(leftData.price+rightData.price - localSBestOffer.discount).toFixed(2)}`
     total.lastChild.textContent     = `£${(leftData.price+rightData.price).toFixed(2)}`
@@ -185,6 +205,17 @@ function renderBestOfferLeft(counter, localCatalog, localSBestOffer){
     nowInBestOffer.left = leftData
     localStorage.removeItem('nowInBestOffer')
     localStorage.setItem('nowInBestOffer',JSON.stringify(nowInBestOffer))
+    //label new
+    if (itemLeft.querySelector('.label_new')){
+        console.log('found')
+        itemLeft.querySelector('.label_new').remove()
+    }
+    if(leftData.hasNew == true){
+        let lebelNew = document.createElement('div')
+        lebelNew.classList.add('label_new')
+        lebelNew.innerHTML='NEW'
+        itemLeftPhoto.before(lebelNew)
+    }
    //update total price
     reCountTotalPriceBestOffer()
 }
@@ -211,6 +242,17 @@ function renderBestOfferRight(counter , localCatalog, localSBestOffer){
     nowInBestOffer.right = rightData
     localStorage.removeItem('nowInBestOffer')
     localStorage.setItem('nowInBestOffer',JSON.stringify(nowInBestOffer))
+    //label new
+    if (itemRight.querySelector('.label_new')){
+        console.log('found')
+        itemRight.querySelector('.label_new').remove()
+    }
+    if(rightData.hasNew == true){
+        let lebelNew = document.createElement('div')
+        lebelNew.classList.add('.label_new')
+        lebelNew.innerHTML='NEW'
+        itemRightPhoto.before(lebelNew)
+    }
     //update total price
     reCountTotalPriceBestOffer()
 }
@@ -224,8 +266,28 @@ function reCountTotalPriceBestOffer(){
 }
 //section best offer END
 
+// section new arrivals
+
+// section new arrivals (default render)
+function renderNewArrivals(){
+    let localCatalog            = JSON.parse(localStorage.getItem('catalog'));
+    let container_newArivals    = document.querySelector('.containerNewArivals')
+    localCatalog = _.reverse(_.sortBy(localCatalog, function(data){return Date.parse(data.dateAdded)}))
+    for (let i=0; i< container_newArivals.children.length; i++){
+        let item = container_newArivals.children[i];
+        //set photos and info's
+        item.querySelector('.item-id').innerHTML = `${localCatalog[i].id}`
+        item.querySelector('img').setAttribute('src', `img/${localCatalog[i].id}.png`)
+        item.querySelector('.item-name').innerHTML = localCatalog[i].title
+        item.querySelector('.item-price').innerHTML = `£${localCatalog[i].price}`
+    }
+    console.log(localCatalog)
+}
 
 
 
 
 
+
+
+// section new arrivals END

@@ -15,6 +15,8 @@
     max-width: 1180px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 /* Main */
 
@@ -78,14 +80,18 @@
 /* PromoBlock end */
 
 /* Best offer */
+.item-img{
+    position: relative;
+}
 .item-id{
     display: none;
 }
 .bestoffer{
     padding-top: 80px;
     padding-bottom: 100px;
+    border-bottom: solid 1px #e5e5e5;
 }
-.bestoffer-text-bold{
+.category-text-bold{
     font-family: 'OpenSans',sans-serif;
     font-size: 50px;
     font-weight: bold;
@@ -104,6 +110,8 @@
     color: #000000;
     padding-top: 10px;
     word-wrap: break-word;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 .arrow_Up, .arrow_Down{
     text-align: center;
@@ -140,6 +148,7 @@
     width: 100%;
 }
 .item-name{
+    padding-top: 45px;
     font-family: 'Roboto';
     font-size: 1em;
     font-weight: bold;
@@ -148,6 +157,7 @@
 }
 .item-price{
     text-align: center;
+    padding-top: 20px;
 }
 .arrow_Up{
     padding-bottom: 35px;
@@ -163,8 +173,15 @@
     font-weight: bold;
     font-size: 2em;
 }
-.btn_AddToBag{
+.btn{
     border: solid 1px #e5e5e5;
+    cursor: pointer;
+    font-family: 'OpenSans',sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+.btn_AddToBag{
+    /* border: solid 1px #e5e5e5; */
     position: absolute;
     right: 0;
     bottom: 105px;
@@ -172,10 +189,10 @@
     padding-bottom: 25px;
     padding-right: 90px;
     padding-left: 90px;
-    cursor: pointer;
+    /* cursor: pointer;
     font-family: 'OpenSans',sans-serif;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.3em; */
 }
 
 
@@ -185,7 +202,7 @@
             position: static;
         }
         .item{
-            width: 48%;
+            /* width: 48%; */
             justify-content: center;
             margin-right: auto;
             margin-left: auto;
@@ -228,7 +245,7 @@
             position: static;
         }
         .item{
-            width: 30%;
+            /* width: 30%; */
             justify-content: center;
             margin-right: auto;
             margin-left: auto;
@@ -258,4 +275,45 @@
     }
 /* Best offer end */
 
+/* New arrivals */
+.newArivals{
+    padding-top: 90px;
+   
+}
+
+.container{
+    padding-top: 90px;
+    display: flex;
+    justify-content: space-between;
+}
+
+ /* mobile layout */
+@media (max-width: 767px){
+    .nomobile{
+        display: none;
+    }
+}
+/* table layout */
+@media (min-width: 768px) and (max-width: 1024px){
+    .notable{
+        display: none;
+    }
+}
+
+/* New arrivals end */
+
+
+.label_new{
+    font-family: sans-serif;
+    font-size: 13px;
+    background-color: #f14a58;
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    top: 20px;
+    left: 0;
+}
 /* Main end */
