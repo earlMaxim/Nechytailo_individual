@@ -30,6 +30,8 @@ bestOffer_changePhotoDown_v.forEach(element =>
         bestOffer_changePhotoDown_f(target)
 }))
 
+//section best offer
+
 // bestOffer changing photo by clicking arrow Up
 function bestOffer_changePhotoUp_f(item){
     //get id of item that rendring now
@@ -220,4 +222,10 @@ function reCountTotalPriceBestOffer(){
     total.firstChild.textContent    = `£${(nowInBestOffer.left.price+nowInBestOffer.right.price - localSBestOffer.discount).toFixed(2)}`
     total.lastChild.textContent     = `£${(nowInBestOffer.left.price+nowInBestOffer.right.price).toFixed(2)}`
 }
+//section best offer END
+
+
+
+
+
 
