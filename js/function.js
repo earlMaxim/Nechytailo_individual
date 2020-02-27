@@ -294,9 +294,10 @@ function renderNewArrivals(){
         item.querySelector('img').addEventListener('click', detailPageItem)         //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
         item.querySelector('.item-name').innerHTML = `<a href="itemDetail.html"> ${localCatalog[i].title} </a>`
 
-        let a = document.createElement('a')
-        a.setAttribute('href', 'itemDetail.html')
-        item.append(a);
+        // let a = document.createElement('a')
+        // a.setAttribute('href', 'itemDetail.html')
+        // item.querySelector('.item-img').append(a);
+        
 
         item.querySelector('.item-name').addEventListener('click', detailPageItem)   //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
         item.querySelector('.item-price').innerHTML = `£${localCatalog[i].price}`
@@ -349,6 +350,8 @@ function renderCatalog(){
         let item_name   = document.createElement('div')
         let item_price  = document.createElement('div')
         let item_id     = document.createElement('div')
+        let a = document.createElement('a')
+        a.setAttribute('href', 'itemDetail.html')
         item.classList.add('item')
         item_img.classList.add('item-img')
         item_name.classList.add('item-name')
@@ -357,7 +360,7 @@ function renderCatalog(){
         //set photos and info's
         item_id.innerHTML = `${filtredCatalog[record].id}`
         img.setAttribute('src', `img/${filtredCatalog[record].id}.png`)
-        item_name.innerHTML = filtredCatalog[record].title
+        item_name.innerHTML = `<a href="itemDetail.html">${filtredCatalog[record].title}</a>`
         item_price.innerHTML = `£${filtredCatalog[record].price}`
         // if item new - supposed to be red label
         if(filtredCatalog[record].hasNew == true){
@@ -367,7 +370,8 @@ function renderCatalog(){
             item_img.append(lebelNew)
         }
         //append all elements
-        item_img.append(img)
+        a.append(img)
+        item_img.append(a)
         item.append(item_img)
         item.append(item_name)
         item.append(item_price)
@@ -379,3 +383,13 @@ function renderCatalog(){
     console.log(container_catalog)
 
 }
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.querySelector("filter");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
