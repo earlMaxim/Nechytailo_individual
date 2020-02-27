@@ -272,7 +272,9 @@ function reCountTotalPriceBestOffer(){
 function renderNewArrivals(){
     let localCatalog            = JSON.parse(localStorage.getItem('catalog'));
     let container_newArivals    = document.querySelector('.containerNewArivals')
+    //range catalog by date from new to old
     localCatalog = _.reverse(_.sortBy(localCatalog, function(data){return Date.parse(data.dateAdded)}))
+
     for (let i=0; i< container_newArivals.children.length; i++){
         let item = container_newArivals.children[i];
         //set photos and info's
@@ -280,6 +282,12 @@ function renderNewArrivals(){
         item.querySelector('img').setAttribute('src', `img/${localCatalog[i].id}.png`)
         item.querySelector('.item-name').innerHTML = localCatalog[i].title
         item.querySelector('.item-price').innerHTML = `£${localCatalog[i].price}`
+        if(localCatalog[i].hasNew == true){
+            let lebelNew = document.createElement('div')
+            lebelNew.classList.add('label_new')
+            lebelNew.innerHTML='NEW'
+            item.querySelector('img').before(lebelNew)
+        }
     }
     console.log(localCatalog)
 }

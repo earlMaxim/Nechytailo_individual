@@ -80,6 +80,35 @@
 /* PromoBlock end */
 
 /* Best offer */
+
+/* animation of selected item */
+.item-img:hover ~ .item-name{
+    color: #f14a58;
+}
+.item-img:hover ~ .item-name::after{
+    color: #f14a58 ;
+    content: 'View item';
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+    top:-250%;
+    left: 29%;
+
+}
+/* .item-name:hover ~ .item-img::after{
+    color: #f14a58 ;
+    content: 'View item';
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+} */
+
+.item-img:hover, .item-name:hover{
+    cursor: pointer;
+    color: #f14a58;
+}
 .item-img{
     position: relative;
 }
@@ -153,7 +182,7 @@
     font-size: 1em;
     font-weight: bold;
     text-align: center;
-
+    position: relative;
 }
 .item-price{
     text-align: center;
@@ -180,6 +209,10 @@
     font-weight: bold;
     font-size: 1.3em;
 }
+.btn:hover{
+    border-color: #f14a58;
+    color: #f14a58;
+}
 .btn_AddToBag{
     /* border: solid 1px #e5e5e5; */
     position: absolute;
@@ -194,10 +227,16 @@
     font-weight: bold;
     font-size: 1.3em; */
 }
+.onlyMob{
+    display: none;
+}
 
 
     /* mobile layout */
     @media (max-width: 767px){
+        .onlyMob{
+            display: block;
+        }
         .btn_AddToBag{
             position: static;
         }
@@ -213,7 +252,7 @@
    
         }
         .bestoffer-tottal{
-            width: 30%;
+            width: 100%;
             text-align: center;
             margin-top: 50px;
             /* position: relative; */
@@ -228,7 +267,8 @@
             text-align: center;
         }
         .symbolPlus{
-            width: 4%;
+            width: 100%;
+            text-align: center;
         }
         .symbolEqual{
             display: none;
@@ -256,7 +296,7 @@
    
         }
         .bestoffer-tottal{
-            width: 30%;
+            /* width: 30%; */
             text-align: center;
         }
         .bestoffer-main{
@@ -270,7 +310,7 @@
 
         .bestoffer-tottal-old{
             top: -37px;
-            left: 37px;
+            left: -15px;
         }
     }
 /* Best offer end */
@@ -278,19 +318,35 @@
 /* New arrivals */
 .newArivals{
     padding-top: 90px;
-   
+    padding-bottom: 90px;
 }
 
 .container{
     padding-top: 90px;
+    padding-bottom: 80px;
     display: flex;
     justify-content: space-between;
 }
+.newArrivals_btn_allArrivals{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    /* padding-left: 20px;
+    padding-right: 20px; */
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    text-align: center;
+}
+
 
  /* mobile layout */
 @media (max-width: 767px){
     .nomobile{
         display: none;
+    }
+    .newArrivals_btn_allArrivals{
+        left: 30%;
+        right: 30%;
     }
 }
 /* table layout */
