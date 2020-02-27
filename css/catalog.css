@@ -1,0 +1,93 @@
+.ad-block{
+    padding-right: 35px;
+    padding-left: 35px;
+    padding-bottom: 80px;
+    width: 100%;
+}
+.regular-bold >span{
+    color: #f14a58;
+}
+.regular-bold , .regular-bold>span{
+    font-family: 'OpenSans',sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.72px;
+    text-align: center;
+}
+
+.container_catalog{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.container_catalog>.item{
+    width: 21%;
+    padding-bottom: 70px;
+}
+
+.item-name:hover ~ .item-price::after{
+    color: #f14a58 ;
+    content: 'View item';
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+    left: 29%;
+    top: -590%;
+}
+
+.btn-fix{
+    border: solid 1px #e5e5e5;
+    cursor: pointer;
+    width: 340px;
+    font-family: 'OpenSans',sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: center;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-fix:hover{
+    border-color: #f14a58;
+    color: #f14a58;
+}
+
+/* Promo block (“Last weekend extra 50% off...”) should be displayed after four items for desktop, 3 items for tablet and 2 items on mobile. T */
+.ad-block{
+    order: 0;
+}
+.container_catalog>.item:nth-child(2),.container_catalog>.item:nth-child(3),.container_catalog>.item:nth-child(4),.container_catalog>.item:nth-child(5){
+    order: -1;
+}
+    /* mobile layout */
+@media (max-width: 767px){
+    .container_catalog>.item{
+        width: 40%;
+        padding-bottom: 40px;
+    }
+    .regular-bold , .regular-bold>span, .bestoffer-text-italic{
+        font-size: 3vw;
+    }
+    .btn-fix{
+       width: 50%;
+    }
+    .container_catalog>.item:nth-child(4),  .container_catalog>.item:nth-child(5){
+        order: 1;
+    }
+}
+/* table layout */
+@media (min-width: 768px) and (max-width: 1024px){
+    .container_catalog>.item{
+        width: 28%;
+    }
+    .btn-fix{
+        width:256px ;
+    }
+    .container_catalog>.item:nth-child(5){
+        order: 1;
+    }
+}

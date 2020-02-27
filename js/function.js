@@ -9,15 +9,19 @@ if(!localStorage.getItem("bestOffer")) {
     localStorage.setItem("bestOffer", JSON.stringify(window.bestOffer));
 }
 
+
 //default functions
+//render main page
+if(document.querySelector('.bestoffer')!=null){
 renderBestOffer()
 renderNewArrivals()
+}
 
 // Variebles
 let bestOffer_changePhotoUp_v     = document.querySelectorAll('.arrow_Up')
 let bestOffer_changePhotoDown_v   = document.querySelectorAll('.arrow_Down')
 let bestOffer_btn_AddToBag        = document.querySelectorAll('.btn_AddToBag')
-
+let catalog_btn_ShowMore          = document.querySelector('.btn_showMore')
 
 // Behavior of different buttons
 bestOffer_changePhotoUp_v.forEach(element => 
@@ -30,6 +34,14 @@ bestOffer_changePhotoDown_v.forEach(element =>
         let target = e.target.closest('.item');
         bestOffer_changePhotoDown_f(target)
 }))
+if(catalog_btn_ShowMore!=null){
+    catalog_btn_ShowMore.addEventListener('click', function(){
+        let container_catalog       = document.querySelector('.container_catalog')
+        let howManyItemsShowingNow  = container_catalog.children.length - 1
+        console.log(howManyItemsShowingNow)
+    })
+}
+
 
 //section best offer
 
@@ -267,7 +279,6 @@ function reCountTotalPriceBestOffer(){
 //section best offer END
 
 // section new arrivals
-
 // section new arrivals (default render)
 function renderNewArrivals(){
     let localCatalog            = JSON.parse(localStorage.getItem('catalog'));
@@ -280,7 +291,14 @@ function renderNewArrivals(){
         //set photos and info's
         item.querySelector('.item-id').innerHTML = `${localCatalog[i].id}`
         item.querySelector('img').setAttribute('src', `img/${localCatalog[i].id}.png`)
-        item.querySelector('.item-name').innerHTML = localCatalog[i].title
+        item.querySelector('img').addEventListener('click', detailPageItem)         //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
+        item.querySelector('.item-name').innerHTML = `<a href="itemDetail.html"> ${localCatalog[i].title} </a>`
+
+        let a = document.createElement('a')
+        a.setAttribute('href', 'itemDetail.html')
+        item.append(a);
+
+        item.querySelector('.item-name').addEventListener('click', detailPageItem)   //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
         item.querySelector('.item-price').innerHTML = `£${localCatalog[i].price}`
         if(localCatalog[i].hasNew == true){
             let lebelNew = document.createElement('div')
@@ -289,13 +307,75 @@ function renderNewArrivals(){
             item.querySelector('img').before(lebelNew)
         }
     }
-    console.log(localCatalog)
 }
 
-
-
-
-
-
-
+ //When user clicked on item (e), itemID adding to localStorage and then detail page render item by that itemID 
+function detailPageItem(e){
+    let targetID = e.target.closest('.item').querySelector('.item-id').textContent;
+    localStorage.removeItem('targetIDForItemDetail')
+    localStorage.setItem("targetIDForItemDetail", JSON.stringify(targetID));
+}
 // section new arrivals END
+
+
+
+
+
+
+// ****************************************
+// functionality for catalog page
+
+
+
+// window.onresize = function () {
+//     let width = document.documentElement.clientWidth;
+//     console.log(width)
+// }
+
+renderCatalog()
+
+function renderCatalog(){
+
+    let localCatalog            = JSON.parse(localStorage.getItem('catalog'));
+    let filtredCatalog          = localCatalog;
+    let container_catalog       = document.querySelector('.container_catalog')
+    let itemsOnPage             = 12;
+    let record=0
+    for (let i=0; i < itemsOnPage; i++){
+        //create elemnts for photo
+        let item        = document.createElement('div');
+        let item_img    = document.createElement('div');
+        let img         = document.createElement('img');
+        let item_name   = document.createElement('div')
+        let item_price  = document.createElement('div')
+        let item_id     = document.createElement('div')
+        item.classList.add('item')
+        item_img.classList.add('item-img')
+        item_name.classList.add('item-name')
+        item_price.classList.add('item-price')
+        item_id.classList.add('item-id')
+        //set photos and info's
+        item_id.innerHTML = `${filtredCatalog[record].id}`
+        img.setAttribute('src', `img/${filtredCatalog[record].id}.png`)
+        item_name.innerHTML = filtredCatalog[record].title
+        item_price.innerHTML = `£${filtredCatalog[record].price}`
+        // if item new - supposed to be red label
+        if(filtredCatalog[record].hasNew == true){
+            let lebelNew = document.createElement('div')
+            lebelNew.classList.add('label_new')
+            lebelNew.innerHTML='NEW'
+            item_img.append(lebelNew)
+        }
+        //append all elements
+        item_img.append(img)
+        item.append(item_img)
+        item.append(item_name)
+        item.append(item_price)
+        item.append(item_id)
+        container_catalog.append(item)
+        record++;
+    }
+
+    console.log(container_catalog)
+
+}

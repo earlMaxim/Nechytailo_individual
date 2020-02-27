@@ -96,20 +96,22 @@
     left: 29%;
 
 }
-/* .item-name:hover ~ .item-img::after{
+.item-name:hover ~ .item-price::after{
     color: #f14a58 ;
     content: 'View item';
     position: absolute;
     font-size: 22px;
     font-weight: bold;
     font-family: sans-serif;
-} */
+    left: 29%;
+    top: -577%;
+}
 
 .item-img:hover, .item-name:hover{
     cursor: pointer;
     color: #f14a58;
 }
-.item-img{
+.item-img, .item-price{
     position: relative;
 }
 .item-id{
