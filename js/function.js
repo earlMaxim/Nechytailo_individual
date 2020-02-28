@@ -165,13 +165,14 @@ function renderBestOffer(){
     itemRight.querySelector('.item-name').innerHTML = rightData.title
     itemLeft.querySelector('.item-price').innerHTML = `£${leftData.price}`
     itemRight.querySelector('.item-price').innerHTML = `£${rightData.price}`
-    //label new
+    // create label new
     if (itemLeft.querySelector('.label_new')){
         itemLeft.querySelector('.label_new').remove()
     }
     if (itemRight.querySelector('.label_new')){
         itemRight.querySelector('.label_new').remove()
     }
+    // adding label new
     if(leftData.hasNew == true){
         let lebelNew = document.createElement('div')
         lebelNew.classList.add('label_new')
@@ -293,12 +294,6 @@ function renderNewArrivals(){
         item.querySelector('img').setAttribute('src', `img/${localCatalog[i].id}.png`)
         item.querySelector('img').addEventListener('click', detailPageItem)         //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
         item.querySelector('.item-name').innerHTML = `<a href="itemDetail.html"> ${localCatalog[i].title} </a>`
-
-        // let a = document.createElement('a')
-        // a.setAttribute('href', 'itemDetail.html')
-        // item.querySelector('.item-img').append(a);
-        
-
         item.querySelector('.item-name').addEventListener('click', detailPageItem)   //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
         item.querySelector('.item-price').innerHTML = `£${localCatalog[i].price}`
         if(localCatalog[i].hasNew == true){
@@ -362,12 +357,22 @@ function renderCatalog(){
         img.setAttribute('src', `img/${filtredCatalog[record].id}.png`)
         item_name.innerHTML = `<a href="itemDetail.html">${filtredCatalog[record].title}</a>`
         item_price.innerHTML = `£${filtredCatalog[record].price}`
+        if(filtredCatalog[record].price - filtredCatalog[record].discountedPrice != 0 && filtredCatalog[record].discountedPrice != null){
+            item_price.innerHTML = `£${filtredCatalog[record].discountedPrice}`
+        }
         // if item new - supposed to be red label
         if(filtredCatalog[record].hasNew == true){
             let lebelNew = document.createElement('div')
             lebelNew.classList.add('label_new')
             lebelNew.innerHTML='NEW'
             item_img.append(lebelNew)
+        }
+        // if price different with discounted price - supposed to be crossed old price
+        if(filtredCatalog[record].price - filtredCatalog[record].discountedPrice != 0 && filtredCatalog[record].discountedPrice != null){
+            let oldPrice = document.createElement('div')
+            oldPrice.classList.add('label_oldPrice')
+            oldPrice.innerHTML = `£${filtredCatalog[record].price }`
+            item_price.prepend(oldPrice)
         }
         //append all elements
         a.append(img)
@@ -393,3 +398,41 @@ function myFunction() {
       x.className = "topnav";
     }
   }
+
+
+
+// adding behaviour for filters
+
+let allFilterOptions = document.getElementsByClassName('dropdown-content')
+if(allFilterOptions != undefined){
+    //first loop going by categories of filters (fashion, color ...)
+    for(let i=0; i<allFilterOptions.length; i++){
+        let filterX = allFilterOptions[i]
+        //second loop going by subcategory of each category
+        for(let y=0; y<filterX.children.length; y++){
+                //click on subcategory
+                filterX.children[y].addEventListener('click',function(){
+                    //we have to add class "active" to this subcategory but firstly remove all others class "active". Because only one subcategory can be "acive"
+                    let current = this.parentNode.getElementsByClassName("active");
+                    current[0].className = current[0].className.replace(" active", "");
+                    this.className += " active";
+                    let dropbtn = this.parentNode.parentNode.querySelector('.selectedFilter')
+                    // we have to change category name if we choose any subcategory except (Not selected)
+                    if(this.textContent!= 'Not selected'){
+                        dropbtn.innerHTML = this.textContent
+                        if( this.parentNode.parentNode.querySelector('.filterCategoryName').classList.contains('filterCategoryName_absolute') == false){
+                            this.parentNode.parentNode.querySelector('.filterCategoryName').classList.add('filterCategoryName_absolute')
+                            }
+                    }
+                    // if we choose (Not selected) category name supposed to be default
+                    if(this.textContent == 'Not selected'){
+                        dropbtn.innerHTML = "";
+                        if( this.parentNode.parentNode.querySelector('.filterCategoryName').classList.contains('filterCategoryName_absolute') == true){
+                            this.parentNode.parentNode.querySelector('.filterCategoryName').classList.toggle('filterCategoryName_absolute')
+                            }
+                    }
+                });
+        } 
+    }
+}
+

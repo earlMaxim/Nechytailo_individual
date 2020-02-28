@@ -1,3 +1,6 @@
+img{
+    display: block;
+}
 .ad-block{
     padding-right: 35px;
     padding-left: 35px;
@@ -50,6 +53,7 @@
     padding-bottom: 23px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 90px;
 }
 .btn-fix:hover{
     border-color: #f14a58;
@@ -64,10 +68,21 @@
     order: -1;
 }
 
+/* ads 3 item block */
+._3item_adBlock{
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 /* filters */
 .filter{
-
+    padding-bottom: 60px;
 }
 
 /* Add a black background color to the top navigation */
@@ -95,10 +110,11 @@
       } 
 }
   /* Add an active class to highlight the current page */
-  .active {
-    background-color: #4CAF50;
-    color: white;
+  .active ,.selectedFilter{
+    color: #f14a58  !important;
   }
+  
+
   
   /* Hide the link that should open and close the topnav on small screens */
   /* .filter .icon {
@@ -113,7 +129,7 @@
     border: 1px solid #e5e5e5;
   }
   /* Style the dropdown button to fit inside the topnav */
-  .dropdown .dropbtn {
+  .dropdown .dropbtn, .filterCategoryName {
     /* font-size: 17px;  */
     border: none;
     outline: none;
@@ -132,6 +148,18 @@
     letter-spacing: 0.36px;
     /* text-align: left; */
     /* color: #f14a58; */
+  }
+  .selectedFilter{
+    border: none;
+    outline: none;
+    color: black;
+    margin: 0;
+    font-family: 'OpenSans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.36px;
   }
   .dropbtn{
     width: 100%;
@@ -191,7 +219,7 @@
     display: block;
   }
   
-  /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+  /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon)
   @media screen and (max-width: 600px) {
     .topnav a:not(:first-child), .dropdown .dropbtn {
       display: none;
@@ -202,7 +230,14 @@
     }
   }
   
-  /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+.filterCategoryName_absolute{
+    position: absolute;
+    font-size: 14px;
+    top: -12px;
+    left: 0;
+} */
+
+  /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally)
   @media screen and (max-width: 600px) {
     .topnav.responsive {position: relative;}
     .topnav.responsive a.icon {
@@ -222,12 +257,16 @@
       width: 100%;
       text-align: left;
     }
-  }
+  } */
 
 
 
     /* mobile layout */
 @media (max-width: 767px){
+    /* ads block */
+    ._3item-adBlock-item:nth-child(2), ._3item-adBlock-item:nth-child(3){
+        display: none;
+    }
     .container_catalog>.item{
         width: 40%;
         padding-bottom: 40px;
@@ -241,9 +280,15 @@
     .container_catalog>.item:nth-child(4),  .container_catalog>.item:nth-child(5){
         order: 1;
     }
+    /* filter */
+
 }
 /* table layout */
 @media (min-width: 768px) and (max-width: 1024px){
+    /* ads block */
+    ._3item-adBlock-item:nth-child(3){
+        display: none;
+    }
     .container_catalog>.item{
         width: 28%;
     }
@@ -253,4 +298,31 @@
     .container_catalog>.item:nth-child(5){
         order: 1;
     }
+    /* filter block */
+    .dropdown,   .dropbtn{
+        width: auto;
+    }
+    .fa-caret-down{
+        display:hidden;
+    }
+    .dropdown .dropbtn, .filterCategoryName {
+        /* font-size: 17px;  */
+        border: none;
+        outline: none;
+        color: black;
+        padding: 0px;
+        padding-left: 5px ;
+        background-color: inherit;
+        /* font-family: inherit; */
+        margin: 0;
+        font-family: 'OpenSans', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        /* line-height: 5.42; */
+        letter-spacing: 0.36px;
+        /* text-align: left; */
+        /* color: #f14a58; */
+      }
 }

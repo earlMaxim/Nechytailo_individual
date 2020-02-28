@@ -94,7 +94,6 @@
     font-family: sans-serif;
     top:-250%;
     left: 29%;
-
 }
 .item-name:hover ~ .item-price::after{
     color: #f14a58 ;
@@ -106,7 +105,6 @@
     left: 29%;
     top: -577%;
 }
-
 .item-img:hover, .item-name:hover{
     cursor: pointer;
     color: #f14a58;
@@ -114,6 +112,7 @@
 .item-img, .item-price{
     position: relative;
 }
+
 .item-id{
     display: none;
 }
@@ -189,6 +188,15 @@
 .item-price{
     text-align: center;
     padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.label_oldPrice{
+    margin-right: 19px;
+    color: #757575;
+    background-image: url(../img/rectangle.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 .arrow_Up{
     padding-bottom: 35px;
