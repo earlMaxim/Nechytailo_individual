@@ -30,7 +30,7 @@ img{
     padding-bottom: 70px;
 }
 
-.item-name:hover ~ .item-price::after{
+/* .item-name:hover ~ .item-price::after{
     color: #f14a58 ;
     content: 'View item';
     position: absolute;
@@ -39,7 +39,17 @@ img{
     font-family: sans-serif;
     left: 29%;
     top: -590%;
-}
+} */
+/* .item-name:hover ~ .item:after{
+    color: #f14a58 ;
+    content: 'View item';
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+    left: 29%;
+    top: -590%;
+} */
 
 .btn-fix{
     border: solid 1px #e5e5e5;
@@ -134,8 +144,9 @@ img{
     border: none;
     outline: none;
     color: black;
-    padding: 14px;
-    padding-left: 19px ;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 16px ;
     background-color: inherit;
     /* font-family: inherit; */
     margin: 0;
@@ -230,12 +241,7 @@ img{
     }
   }
   
-.filterCategoryName_absolute{
-    position: absolute;
-    font-size: 14px;
-    top: -12px;
-    left: 0;
-} */
+
 
   /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally)
   @media screen and (max-width: 600px) {
@@ -259,7 +265,15 @@ img{
     }
   } */
 
-
+.filterCategoryName_absolute{
+    position: absolute;
+    font-size: 14px;
+    top: -14px;
+    left: 0;
+} 
+.notDesktop>i{
+    display: none;
+}
 
     /* mobile layout */
 @media (max-width: 767px){
@@ -281,7 +295,49 @@ img{
         order: 1;
     }
     /* filter */
-
+ /* filter block */
+ .dropdown,   .dropbtn{
+    width: auto;
+}
+.dropbtn>i{
+    display:none;
+}
+.filter{
+    margin-bottom: 50px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.dropdown .dropbtn, .filterCategoryName {
+    /* font-size: 17px;  */
+    border: none;
+    outline: none;
+    color: black;
+    padding: 0px;
+    padding-left: 5px ;
+    background-color: inherit;
+    /* font-family: inherit; */
+    margin: 0;
+    font-family: 'OpenSans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    /* line-height: 5.42; */
+    letter-spacing: 0.36px;
+    /* text-align: left; */
+    /* color: #f14a58; */
+}
+.dropdown{
+    border: none;
+}
+.filterCategoryName_absolute{
+    display: none;
+}
+.notDesktop>i{
+position: relative;
+margin-left: 25px;
+display: inline;
+}
 }
 /* table layout */
 @media (min-width: 768px) and (max-width: 1024px){
@@ -302,8 +358,13 @@ img{
     .dropdown,   .dropbtn{
         width: auto;
     }
-    .fa-caret-down{
-        display:hidden;
+    .dropbtn>i{
+        display:none;
+    }
+    .filter{
+        margin-bottom: 50px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e5e5e5;
     }
     .dropdown .dropbtn, .filterCategoryName {
         /* font-size: 17px;  */
@@ -324,5 +385,16 @@ img{
         letter-spacing: 0.36px;
         /* text-align: left; */
         /* color: #f14a58; */
-      }
+    }
+    .dropdown{
+        border: none;
+    }
+    .filterCategoryName_absolute{
+        display: none;
+    }
+    .notDesktop>i{
+    position: relative;
+    margin-left: 25px;
+    display: inline;
+    }
 }

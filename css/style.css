@@ -38,6 +38,7 @@
       object-fit: cover;
       max-height: 100%;
       overflow: hidden;
+      display: block;
     }
     .promoLeft{
         width: 50%;
@@ -70,17 +71,13 @@
 
 }
 /* table layout */
-@media screen and (max-width: 1024px){
-
-}
-@media screen and (min-width: 1300px){
-
-}
 
 /* PromoBlock end */
 
 /* Best offer */
-
+.item{
+    max-width: 240px;
+}
 /* animation of selected item */
 .item-img:hover ~ .item-name{
     color: #f14a58;
@@ -103,7 +100,7 @@
     font-weight: bold;
     font-family: sans-serif;
     left: 29%;
-    top: -577%;
+    top: -576%;
 }
 .item-img:hover, .item-name:hover{
     cursor: pointer;
@@ -288,6 +285,10 @@
             right: 0;
             top: -30px;
         }
+        .body-wrap{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
     }
     /* table layout */
     @media (min-width: 768px) and (max-width: 1024px){
@@ -321,6 +322,14 @@
         .bestoffer-tottal-old{
             top: -37px;
             left: -15px;
+        }
+        .body-wrap{
+            width: 100%;
+            max-width: 1180px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 /* Best offer end */

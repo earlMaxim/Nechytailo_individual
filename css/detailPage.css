@@ -1,0 +1,271 @@
+@font-face{
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-style: normal;
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+@font-face{
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-style: normal;
+    src: url(../fonts/Roboto/Roboto-Bold.ttf);
+}
+.btnBack{
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+.item_detail_container{
+    display: flex;
+    justify-content: center;
+}
+.item_about{
+    padding-left: 50px;
+}
+.backToCatalog{
+    font-family: 'OpenSans',sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.48px;
+    text-align: left;
+    color: #000000;
+}
+.fa-chevron-left{
+    font-size: 12px;
+    align-self: center;
+}
+
+.btn_{
+    width: 340px;
+    border: solid 1px #e5e5e5;
+    font-family: 'OpenSans',sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.72px;
+    text-align: center;
+    color: #000000;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+}
+
+.item_gallery{
+    max-width: 590px;
+}
+.mySlides > img, .column>img{
+    width: 100%;
+    display: block;
+}
+
+.item_detail_container .label_oldPrice{
+    background-position:-4%;
+    font-size: 14px;
+}
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}  
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 33.33%;
+}
+/* Add a transparency effect for thumnbail images */
+.demo {
+    /* opacity: 0.6; */
+  }
+  
+.active,
+.demo:hover {
+    opacity: 1;
+}
+.row>.column>.active::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);  
+    z-index: 1;
+}
+
+.item-nameD{
+    font-family: 'Roboto';
+    font-size: 26px;
+    font-weight: bold;
+    font-style: normal;
+    letter-spacing: 0.78px;
+    color: #000000;
+}
+.item-priceD{
+    font-family: 'Roboto';
+    font-size: 25px;
+    font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0.75px;
+    color: #000000;
+    padding-top: 50px;
+}
+
+.item_about> .bestoffer-text-italic{
+    text-align: start;
+    padding-left: 0px;
+}
+.sign_itemd{
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.36px;
+    margin-right: 40px;
+    display: flex;
+    align-self: center;
+    width: 40px;
+}
+.size_conteiner{
+    margin-top: 45px;
+}
+.size_conteiner,
+.avalible_sign,
+.color_container{
+    display: flex;
+}
+.color_container{
+    margin-top: 20px;
+}
+.activeItemDetail{
+    border: 1px solid #e5e5e5;
+}
+.variantForChoose{
+    cursor: pointer;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: 'OpenSans',sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.42px;
+    text-align: center;
+    color: #000000;
+}
+ /* mobile layout */
+ @media (max-width: 767px){
+    .nomobile{
+        display: none;
+    }
+    .newArrivals_btn_allArrivals{
+        left: 30%;
+        right: 30%;
+    }
+
+    .item_detail_container{
+        flex-direction: column;
+    }
+    .item_gallery{
+        width: 100%;
+        max-width: none;
+    }
+    .item_about{
+        padding-left: 0px;
+    }
+    .item-nameD{
+        text-align: center;
+        padding-top: 45px;
+    }
+    .bestoffer-text-italic{
+        text-align: center;
+    }
+    .item-priceD{
+        padding-top: 25px;
+    }
+
+}
+/* table layout */
+@media (min-width: 768px) and (max-width: 1024px){
+    .notable{
+        display: none;
+    }
+    .item_detail_container{
+        flex-direction: column;
+    }
+    .item_gallery{
+        max-width: 690px;
+        display: flex;
+        /* max-width: none; */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .row{
+        display: flex;
+        flex-direction: column;
+        /* width: 25%; */
+    }
+    .item_about{
+        padding-left: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+    .item-nameD{
+        text-align: center;
+        padding-top: 22px;
+    }
+    .bestoffer-text-italic{
+        text-align: center;
+
+    }
+    .textCenter{
+        text-align: center !important;
+        order: 1;
+        padding-top: 25px;
+    }
+    .item-priceD{
+        text-align: center;
+        order: 0;
+        padding-top: 25px;
+    }
+    .size_conteiner,
+    .color_container,
+    .btn_buy{
+        justify-content: center;
+        order: 2;
+    }
+    .item_detail_container .label_oldPrice{
+        background-position: 50% 50%;
+        font-size: 14px;
+    }
+}

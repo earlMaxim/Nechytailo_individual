@@ -41,6 +41,25 @@ if(catalog_btn_ShowMore!=null){
         console.log(howManyItemsShowingNow)
     })
 }
+//click on Nike Red navigate to Dark Suit item page
+let nikeRed                     = document.querySelector('.promoLeft')
+if (nikeRed != null){
+    nikeRed.addEventListener('click', function(){
+        localStorage.removeItem('targetIDForItemDetail')
+        localStorage.setItem("targetIDForItemDetail", JSON.stringify('80d32566-d81c-4ba0-9edf-0eceda3b4360'));
+        })
+}
+
+// Header responsive 
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunctionHeader() {
+    let x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 
 
 //section best offer
@@ -334,6 +353,13 @@ function renderCatalog(){
 
     let localCatalog            = JSON.parse(localStorage.getItem('catalog'));
     let filtredCatalog          = localCatalog;
+    //range catalog by date from new to old
+    filtredCatalog = _.reverse(_.sortBy(localCatalog, function(data){return Date.parse(data.dateAdded)}))
+    //Filtered by “category” “women” and “fashion” “Casual style”
+    filtredCatalog = _.sortBy(filtredCatalog, function(category){if (category.category=='women'){return category.category}})
+    //Filtered by “fashion” - “Casual style”
+    filtredCatalog = _.sortBy(filtredCatalog, function(style){if (style.fashion=='Casual style'){return style.fashion}})
+   
     let container_catalog       = document.querySelector('.container_catalog')
     let itemsOnPage             = 12;
     let record=0
@@ -356,7 +382,10 @@ function renderCatalog(){
         item_id.innerHTML = `${filtredCatalog[record].id}`
         img.setAttribute('src', `img/${filtredCatalog[record].id}.png`)
         item_name.innerHTML = `<a href="itemDetail.html">${filtredCatalog[record].title}</a>`
+        img.addEventListener('click', detailPageItem) 
+        item_name.addEventListener('click', detailPageItem)  
         item_price.innerHTML = `£${filtredCatalog[record].price}`
+        //if discount price less then price
         if(filtredCatalog[record].price - filtredCatalog[record].discountedPrice != 0 && filtredCatalog[record].discountedPrice != null){
             item_price.innerHTML = `£${filtredCatalog[record].discountedPrice}`
         }
