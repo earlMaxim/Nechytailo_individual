@@ -82,7 +82,7 @@
 .item-img:hover ~ .item-name{
     color: #f14a58;
 }
-.item-img:hover ~ .item-name::after{
+.container_catalog>.item>.item-img:hover ~ .item-name::after{
     color: #f14a58 ;
     content: 'View item';
     position: absolute;
@@ -92,7 +92,7 @@
     top:-250%;
     left: 29%;
 }
-.item-name:hover ~ .item-price::after{
+.container_catalog>.item>.item-name:hover ~ .item-price::after{
     color: #f14a58 ;
     content: 'View item';
     position: absolute;
@@ -103,6 +103,14 @@
     top: -576%;
 }
 .item-img:hover, .item-name:hover{
+    cursor: pointer;
+    color: #f14a58;
+}
+.item-name:hover>a{
+    cursor: pointer;
+    color: #f14a58;
+}
+.item-img:hover ~ .item-name>a{
     cursor: pointer;
     color: #f14a58;
 }

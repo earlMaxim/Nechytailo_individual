@@ -35,7 +35,10 @@
     font-size: 12px;
     align-self: center;
 }
-
+.btn_:hover{
+    color: #f14a58;
+    border-color: #f14a58;
+}
 .btn_{
     width: 340px;
     border: solid 1px #e5e5e5;
@@ -52,6 +55,7 @@
     margin-right: auto;
     margin-left: auto;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 .item_gallery{

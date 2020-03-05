@@ -1,5 +1,6 @@
 // variebles
 let btnAddToBag                 = document.querySelector(".btn_buy")
+console.log(btnAddToBag)
 
 btnAddToBag.addEventListener('click', buyThisItem)
 
@@ -109,18 +110,24 @@ function buyThisItem(){
     let id      = JSON.parse(localStorage.getItem('targetIDForItemDetail'));
     let color   = null;
     let size    = null;
+    let price   = (document.querySelector('.item-priceD').textContent).substring(1)
+    let megaUniqId = id;
     //if item has size options
     if(document.querySelector('.size_conteiner').querySelector('.avalible_sign').children.length!=0){
         size    = document.querySelector('.size_conteiner').querySelector('.avalible_sign').querySelector('.activeItemDetail').textContent
+        megaUniqId = megaUniqId + size;
     }
     //if item has color options
     if(document.querySelector('.color_container').querySelector('.avalible_sign').children.length!=0){
         color   = document.querySelector('.color_container').querySelector('.avalible_sign').querySelector('.activeItemDetail').textContent
+        megaUniqId = megaUniqId + color;
     }
     let inShopingCart = {
         itemID: id,
         color:  color,
-        size:   size
+        size:   size,
+        price:  price,
+        megaUniqId: megaUniqId
     }
     let ShopingCart = JSON.parse(localStorage.getItem('ShopingCart'));
     // if we already has something in Shoping Cart
