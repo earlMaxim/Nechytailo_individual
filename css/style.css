@@ -17,9 +17,24 @@
     margin-right: auto;
     padding-left: 10px;
     padding-right: 10px;
+    overflow-x: scroll; 
 }
 /* Main */
-
+/* body{
+    display: flex;
+    flex-direction: column;
+   
+} */
+/* .longline{
+    flex: 0 0 auto;
+    margin-top:95px ;
+} */
+.fix-fottersticky{
+    min-height: calc(100vh - 740px);
+}
+footer{
+    margin-top: 95px;
+}
 /* PromoBlock */
 
     .promoblock{
@@ -400,3 +415,4 @@
     left: 0;
 }
 /* Main end */
+

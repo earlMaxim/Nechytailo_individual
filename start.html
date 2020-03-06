@@ -15,15 +15,34 @@
     <div class="body-wrap">
         <header class="main-header">
             <div class="header-top">
-                <div class="logo"><a href="start.html">Template</a></div>
+                <div class="logo"><a href="start.html"> <span class="noPhone"> Template</span> <span class="onlyPhone">TL</span></a></div>
                 <div class="header-top-right">
                     <div class="signup">E-mail sing up</div>
-                    <div class="bag"><a href=""><i class="fas fa-shopping-bag"></i>Bag <span class="bagprice"></span><span class="bagquantity">(0)</span></a></div>
+                    <div class="bag"><a href="shopingBag.html"><i class="fas fa-shopping-bag"></i>Bag <span class="bagprice"></span><span class="bagquantity">(0)</span></a></div>
                 </div>
             </div>
-            <div class="header-bottom topnav" id="myTopnav">
+            <div class="header-bottom">
                 <a href="" style="display: none;"></a>
-                <a href="#" class="active">Women</a>
+                <a href="#" class="active" style="color: #f14a58;">Women</a>
+                <a href="#">Men</a>
+                <a href="#">Handbags</a>
+                <a href="#">Accessories</a>
+                <a href="#">Sale</a>
+                <a href="catalog.html">New Arivals</a>
+                <a href="#">Clearance</a>
+                <a href="#">Store Locator</a>
+                <div class="search">
+                    <input type="text" placeholder="Style Name">
+                    <a href=""><i class="fas fa-search"></i></a>
+                </div>
+                <!-- <a href="javascript:void(0);" class="icon" onclick="myFunctionHeader()">
+                    <i class="fa fa-bars"></i>
+                </a> -->
+            </div>
+            <!-- fix for phone -->
+            <div class="topnav" id="myTopnav">
+                <a href="" style="display: none;"></a>
+                <a href="#" class="active" style="color: #f14a58;" >Women</a>
                 <a href="#">Men</a>
                 <a href="#">Handbags</a>
                 <a href="#">Accessories</a>
@@ -37,30 +56,9 @@
                 </div>
                 <a href="javascript:void(0);" class="icon" onclick="myFunctionHeader()">
                     <i class="fa fa-bars"></i>
+                    <i class="fas fa-times"></i>
                 </a>
             </div>
-            <!-- <div class="header-bottom topnav" id="myTopnav">
-                <div class="menu">
-                    <ul>
-                        <li><a href="">Women</a></li>
-                        <li><a href="">Men</a></li>
-                        <li><a href="">Handbags</a></li>
-                        <li><a href="">Accessories</a></li>
-                        <li><a href="">Sale</a></li>
-                        <li><a href="">New Arivals</a></li>
-                        <li><a href="">Clearance</a></li>
-                        <li><a href="">Store Locator</a></li>
-                    </ul>
-                </div>
-                <div class="search">
-                    <input type="text" placeholder="Style Name">
-                    <a href=""><i class="fas fa-search"></i></a>
-                </div>
-                <a href="javascript:void(0);" class="icon" onclick="myFunctionHeader()">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div> -->
-            
         </header>
     </div>
 
@@ -109,7 +107,7 @@
                         </div>
                         <div class="symbolEqual">=</div>
                         <div class="bestoffer-tottal">£<div class="bestoffer-tottal-old">£</div></div>
-                        <div class="btn btn_AddToBag">Add to bag</div>
+                        <a href="#"><div class="btn btn_AddToBag">Add to bag</div></a>
                     </div>
                 </div>
                 <span class="fedupLine"></span>

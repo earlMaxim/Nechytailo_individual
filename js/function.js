@@ -15,15 +15,21 @@ if(!localStorage.getItem("bestOffer")) {
 if(document.querySelector('.bestoffer')!=null){
 renderBestOffer()
 renderNewArrivals()
+showInfoInHeaderBag()
 }
 
 // Variebles
 let bestOffer_changePhotoUp_v     = document.querySelectorAll('.arrow_Up')
 let bestOffer_changePhotoDown_v   = document.querySelectorAll('.arrow_Down')
-let bestOffer_btn_AddToBag        = document.querySelectorAll('.btn_AddToBag')
+let bestOffer_btn_AddToBag        = document.querySelector('.btn_AddToBag')
 let catalog_btn_ShowMore          = document.querySelector('.btn_showMore')
 
+
+
 // Behavior of different buttons
+if(document.querySelector('.bestoffer')!=null){
+    bestOffer_btn_AddToBag.addEventListener('click', buyBestOffer)
+}
 bestOffer_changePhotoUp_v.forEach(element => 
     element.addEventListener('click', function(e){
         let target = e.target.closest('.item');
@@ -38,7 +44,6 @@ if(catalog_btn_ShowMore!=null){
     catalog_btn_ShowMore.addEventListener('click', function(){
         let container_catalog       = document.querySelector('.container_catalog')
         let howManyItemsShowingNow  = container_catalog.children.length - 1
-        console.log(howManyItemsShowingNow)
     })
 }
 //click on Nike Red navigate to Dark Suit item page
@@ -58,6 +63,7 @@ function myFunctionHeader() {
       x.className += " responsive";
     } else {
       x.className = "topnav";
+      
     }
   }
 
@@ -250,6 +256,7 @@ function renderBestOfferLeft(counter, localCatalog, localSBestOffer){
     }
    //update total price
     reCountTotalPriceBestOffer()
+    showInfoInHeaderBag()
 }
 // bestOffer render changed photo by clicking arrow Down
 function renderBestOfferRight(counter , localCatalog, localSBestOffer){
@@ -332,7 +339,45 @@ function detailPageItem(e){
 }
 // section new arrivals END
 
-
+function buyBestOffer(){
+    let IWantBuy = JSON.parse(localStorage.getItem('nowInBestOffer'));
+    let ShopingCart = JSON.parse(localStorage.getItem('ShopingCart'));
+    console.log(IWantBuy)
+    function AddToBag(Item){
+        this.itemID = Item.id
+        this.megaUniqId = Item.id
+        if(Item.discountedPrice!=null && Item.discountedPrice<Item.price){
+            this.price = Item.discountedPrice
+        }
+        if(Item.discountedPrice ==null || Item.discountedPrice==Item.price){
+            this.price = Item.price
+        }
+        if(Item.sizes!=0){
+            this.size = Item.sizes[0]
+            this.megaUniqId += Item.sizes[0]
+        }
+        if(Item.colors!=0){
+            this.color = Item.colors[0]
+            this.megaUniqId += Item.colors[0]
+        }
+    }
+    let leftItem  = new AddToBag(IWantBuy.left)
+    let rightItem = new AddToBag(IWantBuy.right)
+    if(ShopingCart != null){
+        localStorage.removeItem('ShopingCart')
+        ShopingCart.push(leftItem)
+        ShopingCart.push(rightItem)
+    }
+    if(ShopingCart == null){
+        ShopingCart =[];
+        ShopingCart.push(leftItem)
+        ShopingCart.push(rightItem)
+    }
+    localStorage.setItem('BestOfferFlag',15)
+    localStorage.setItem('ShopingCart', JSON.stringify(ShopingCart))
+    showInfoInHeaderBag()
+    console.log(ShopingCart)
+}
 
 
 
@@ -341,13 +386,10 @@ function detailPageItem(e){
 // functionality for catalog page
 
 
+if(document.querySelector('.container_catalog')){
+    renderCatalog()
+}
 
-// window.onresize = function () {
-//     let width = document.documentElement.clientWidth;
-//     console.log(width)
-// }
-
-renderCatalog()
 
 function renderCatalog(){
 
@@ -465,3 +507,53 @@ if(allFilterOptions != undefined){
     }
 }
 
+
+
+
+
+//Always update info in header 
+function showInfoInHeaderBag(){
+    // let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
+    // console.log(nowInBag)
+    // if(nowInBag!=undefined){
+    //     let money   = 0;
+    //     let quantity= nowInBag.length;
+    //     console.log(quantity)
+    //     for(let i =0; i<quantity;i++){
+    //         money = parseFloat(money)+ parseFloat(nowInBag[i].price)
+    //         console.log('money')
+    //     }
+    //     console.log(parseInt(nowInBag[0].price))
+    //     document.querySelector('.bagprice').innerHTML    =`£ ${money}`
+    //     document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
+    // }
+
+    let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
+    if(nowInBag!=undefined){
+        let money   = 0;
+        let quantity= nowInBag.length;
+
+        console.log(typeof(nowInBag))
+        for(let i =0; i<quantity;i++){
+            money = parseFloat(money)+ parseFloat(nowInBag[i].price)
+            console.log(money)
+        }
+        console.log(nowInBag)
+        // console.log(parseInt(nowInBag[0].price))
+        document.querySelector('.bagprice').innerHTML    =`£ ${money}`
+        document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
+    }
+    if(nowInBag==undefined || nowInBag==null){
+        // let money   = 0;
+        // let quantity= nowInBag.length;
+        // console.log(quantity)
+        // for(let i =0; i<quantity;i++){
+        //     money = parseFloat(money)+ parseFloat(nowInBag[i].price)
+        //     console.log('money')
+        // }
+        // console.log(nowInBag)
+        // console.log(parseInt(nowInBag[0].price))
+        document.querySelector('.bagprice').innerHTML    =`£ 0`
+        document.querySelector('.bagquantity').innerHTML = ` (0)`
+    }
+}

@@ -1,35 +1,62 @@
 
-// showInfoInHeaderBag()
-// //Always update info in header 
-// function showInfoInHeaderBag(){
-//     let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
-//     if(nowInBag!=undefined){
-//         let money   = 0;
-//         let quantity= nowInBag.length;
-//         console.log(quantity)
-//         for(let i =0; i<quantity;i++){
-//             money = parseFloat(money)+ parseFloat(nowInBag[i].price)
-//             console.log('money')
-//         }
-//         console.log(parseInt(nowInBag[0].price))
-//         document.querySelector('.bagprice').innerHTML    =`£ ${money}`
-//         document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
-//     }
-// }
+showInfoInHeaderBag()
+//Always update info in header 
+function showInfoInHeaderBag(){
+    let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
+    if(nowInBag!=undefined){
+        let money   = 0;
+        let quantity= nowInBag.length;
+
+        console.log(typeof(nowInBag))
+        for(let i =0; i<quantity;i++){
+            money = parseFloat(money)+ parseFloat(nowInBag[i].price)
+            console.log(money)
+        }
+        console.log(nowInBag)
+        // console.log(parseInt(nowInBag[0].price))
+        document.querySelector('.bagprice').innerHTML    =`£ ${money}`
+        document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
+    }
+    if(nowInBag==undefined || nowInBag==null){
+        // let money   = 0;
+        // let quantity= nowInBag.length;
+        // console.log(quantity)
+        // for(let i =0; i<quantity;i++){
+        //     money = parseFloat(money)+ parseFloat(nowInBag[i].price)
+        //     console.log('money')
+        // }
+        // console.log(nowInBag)
+        // console.log(parseInt(nowInBag[0].price))
+        document.querySelector('.bagprice').innerHTML    =`£ 0`
+        document.querySelector('.bagquantity').innerHTML = ` (0)`
+    }
+}
+
+if(document.querySelector('.itemsInBag')){
+    renderBagPage()
+    renderTotalPrice()
+}
 
 
-renderBagPage()
+let btn_emptyBag = document.querySelector('.empty_bag')
+let btn_checkout = document.querySelector('.btn_checkout')
+
+if(document.querySelector('.itemsInBag')){
+    btn_emptyBag.addEventListener('click', emptyBag)
+    btn_checkout.addEventListener('click', checkout)
+}
+
+
 function renderBagPage(){
     let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
     let catalog                       = JSON.parse(localStorage.getItem('catalog'));
     let containerForItems             = document.querySelector('.itemsInBag')
     console.log(nowInBag)
-
     let IcheckUniqItems = []; // in case if we have same item but in diferent sizes or colors
 
     // if have any items in the bag
     if(nowInBag!=undefined){
-
+        containerForItems.innerHTML='';
         // this loop going by each item in the Cart
         for(let i=0;i<nowInBag.length;i++){
             let id = nowInBag[i].itemID
@@ -38,8 +65,15 @@ function renderBagPage(){
 
             // if in shoping bag we have same items we dont have render them twice we have to change quantity only 
             if(IcheckUniqItems.includes(nowInBag[i].megaUniqId) == true){
-                let quantityAddOne = document.querySelector('.item-id-mega').parentNode.querySelector('.quantity_variable')
-                quantityAddOne.innerHTML = (parseInt(quantityAddOne.textContent) + 1)
+                let quantityAddOne = document.querySelectorAll('.item-id-mega')
+                for(let y=0;y<quantityAddOne.length;y++){
+                    if(quantityAddOne[y].textContent == nowInBag[i].megaUniqId){
+                        quantityAddOne= quantityAddOne[y].parentNode.querySelector('.quantity_variable')
+                    }
+                }
+                quantityAddOne.innerHTML = (parseFloat(quantityAddOne.textContent) + 1)
+                // let quantityAddOne = document.querySelector('.item-id-mega').parentNode.querySelector('.quantity_variable')
+                // quantityAddOne.innerHTML = (parseFloat(quantityAddOne.textContent) + 1)
             }
 
             // render item but if we already rendered similliar we have to change quantity number only
@@ -97,9 +131,7 @@ function renderBagPage(){
                 quantity_minus.addEventListener('click', oneLessSelectedItem)
                 quantity_variable.innerHTML = '1'
                 //additional info about size, color..
-                console.log(id)
                 if(nowInBag[i].color != null){
-                    console.log('hey'+id.color)
                     item_detail_color.innerHTML = `Color: ${nowInBag[i].color}`
                 }
                 if(nowInBag[i].size != null){
@@ -139,7 +171,6 @@ function renderBagPage(){
     }
 }
 
-
 function detailPageItem(e){
     let targetID = e.target.closest('.item').querySelector('.item-id').textContent;
     localStorage.removeItem('targetIDForItemDetail')
@@ -157,6 +188,8 @@ function removeThisItemFromBag(e){
     ShopingCart     = _.differenceWith(ShopingCart, [howLookThatElem], _.isEqual)
     localStorage.setItem('ShopingCart', JSON.stringify(ShopingCart))
     //then we delete DOM
+    renderTotalPrice()
+    showInfoInHeaderBag()
     item.remove()
 }
 
@@ -169,7 +202,12 @@ function oneMoreSelectedItem(e){
     let color = container_info.querySelector('.item_detail_color').textContent.substring(7);
     let size = container_info.querySelector('.item_detail_size').textContent.substring(6);
     let price = container_info.querySelector('.item-price').textContent.substring(1)
+    if(price.includes('£')){
+        price = price.slice((price.indexOf('£')+1) )
+    }
     buyThisItem(id,color,size,price)
+    renderTotalPrice()
+    showInfoInHeaderBag()
 }
 
 function oneLessSelectedItem(e){
@@ -195,8 +233,8 @@ function oneLessSelectedItem(e){
             }
 
             localStorage.setItem('ShopingCart', JSON.stringify(ShopingCart))
-
-            console.log(ShopingCart)
+            renderTotalPrice()
+            showInfoInHeaderBag()
         }
         else{alert("Sorry, but you cannot choose a quantity less than zero")}
 }
@@ -235,4 +273,49 @@ function buyThisItem(Id, Color, Size, Price){
         ShopingCart.push(inShopingCart)
     }
     localStorage.setItem('ShopingCart', JSON.stringify(ShopingCart))
+}
+
+function renderTotalPrice(){
+    let ShopingCart = JSON.parse(localStorage.getItem('ShopingCart'));
+    let idDiscount  = JSON.parse(localStorage.getItem('BestOfferFlag'));
+    let totalPrice = 0;
+    if(ShopingCart!=null){
+        for(let i=0;i<ShopingCart.length;i++){
+            totalPrice = totalPrice + parseFloat(ShopingCart[i].price)
+        }
+        totalPrice = totalPrice.toFixed(2)
+        document.querySelector('.totalPrice').innerHTML = `Total price: £${totalPrice}`
+        if(idDiscount!=null){
+            document.querySelector('.appliedDiscount').innerHTML = `Applied discount: £${idDiscount.toFixed(2)}`
+        }
+        if(idDiscount==null){
+            document.querySelector('.appliedDiscount').innerHTML = ``
+        }
+    }
+    if(ShopingCart==null){
+        document.querySelector('.totalPrice').innerHTML = `Total price: £0`
+    }
+}
+
+function emptyBag(){
+    let allGoods = document.querySelector('.itemsInBag')
+    if(allGoods.childElementCount>0){
+        localStorage.removeItem('ShopingCart')
+        localStorage.removeItem('idDiscount')
+        renderTotalPrice()
+        showInfoInHeaderBag()
+    }
+}
+
+function checkout(){
+    let allGoods = document.querySelector('.itemsInBag')
+    document.querySelector('.appliedDiscount').innerHTML=''
+    if(allGoods.childElementCount>0){
+        localStorage.removeItem('ShopingCart')
+        localStorage.removeItem('idDiscount')
+        allGoods.innerHTML = "  <span class=\"defaultInfo\">  Thank you for your purchase </span>" ;
+
+        renderTotalPrice()
+        showInfoInHeaderBag()
+    }
 }

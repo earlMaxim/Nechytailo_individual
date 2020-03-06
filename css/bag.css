@@ -83,7 +83,7 @@
 /* animation of selected item */
 .itemsInBag>.item>.item-img:hover > a::after{
     color: #f14a58 ;
-    content: 'View item';
+    content: 'Edit item';
     position: absolute;
     font-size: 22px;
     font-weight: bold;
@@ -93,7 +93,7 @@
 }
 .item-info>.item-name:hover ~  .item-price::after{
     color: #f14a58 ;
-    content: 'View item';
+    content: 'Edit item';
     position: absolute;
     font-size: 22px;
     font-weight: bold;
@@ -119,6 +119,7 @@
     background-color: #f7f7f7;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 28px;
 }
 .wide_aboutdelivery>p{
     font-family: 'OpenSans', sans-serif;
@@ -138,9 +139,126 @@
     font-weight: bold;
 }
 
+.checkout_area{
+    display: flex;
+    justify-content: space-between;
+    flex: 0 0 auto;
+}
+.empty_bag{
+    font-family: 'Roboto',sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.39px;
+    color: #000000;
+    height: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.empty_bag:hover{
+    cursor: pointer;
+    color:  #f14a58;
+}
+.btn_checkout{
+width: 340px;
+height: 75px;
+border: solid 1px #e5e5e5;
+cursor: pointer;
+text-align: center;
+justify-content: center;
+}
+.btn_checkout>span{
+font-family: 'OpenSans', sans-serif;
+font-size: 24px;
+font-weight: bold;
+font-stretch: normal;
+font-style: normal;
+line-height: 3.2;
+letter-spacing: 0.72px;
+text-align: center;
+color: #000000;
+}
+.btn_checkout:hover >span{
+    color:  #f14a58;
+    border-color:#f14a58;;
+}
+.btn_checkout:hover{
+    border-color:#f14a58;;
+}
+.totalPrice_container{
+    display: flex;
+    justify-content: baseline;
+}
+.totalPrice{
+    font-family: 'Roboto',sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.66px;
+    color: #000000;
+    margin-top: auto;
+    margin-bottom: auto;
+   
+}
+.appliedDiscount{
+    position: absolute;
+    font-family: 'Roboto',sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0.48px;
+    right: 5%;
+    color: #f14a58;
+
+}
+
+.defaultInfo{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.boldShopingBag{
+    font-family: 'OpenSans',sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.6px;
+    text-align: left;
+    color: #000000;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid  #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
 /* mobile layout */
 @media (max-width: 767px){
-
+    .checkout_area{
+        flex-direction: column;
+        align-items: center;
+    }
+    .totalPrice_container{
+        order:0;
+        margin-bottom: 15px;
+        position: relative;
+        padding-top: 15px;
+    }
+    .btn_checkout{
+        order: 1;
+        margin-bottom: 15px;
+    }
+    .empty_bag{
+        order: 2;
+    }
+    .appliedDiscount { 
+        top:-7%;
+        right: 5%;
+     
+    }
 }
 /* table layout */
 @media (min-width: 768px) and (max-width: 1024px){
