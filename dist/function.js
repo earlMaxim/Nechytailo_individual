@@ -1,0 +1,546 @@
+'use strict';
+
+// Put all data from catalog.js and best-offer.js to localstorage
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+if (!localStorage.getItem("catalog")) {
+    localStorage.setItem("catalog", JSON.stringify(window.catalog));
+}
+if (!localStorage.getItem("bestOffer")) {
+    localStorage.setItem("bestOffer", JSON.stringify(window.bestOffer));
+}
+
+//default functions
+//render main page
+if (document.querySelector('.bestoffer') != null) {
+    renderBestOffer();
+    renderNewArrivals();
+    showInfoInHeaderBag();
+}
+
+// Variebles
+var bestOffer_changePhotoUp_v = document.querySelectorAll('.arrow_Up');
+var bestOffer_changePhotoDown_v = document.querySelectorAll('.arrow_Down');
+var bestOffer_btn_AddToBag = document.querySelector('.btn_AddToBag');
+var catalog_btn_ShowMore = document.querySelector('.btn_showMore');
+
+// Behavior of different buttons
+if (document.querySelector('.bestoffer') != null) {
+    bestOffer_btn_AddToBag.addEventListener('click', buyBestOffer);
+}
+bestOffer_changePhotoUp_v.forEach(function (element) {
+    return element.addEventListener('click', function (e) {
+        var target = e.target.closest('.item');
+        bestOffer_changePhotoUp_f(target);
+    });
+});
+bestOffer_changePhotoDown_v.forEach(function (element) {
+    return element.addEventListener('click', function (e) {
+        var target = e.target.closest('.item');
+        bestOffer_changePhotoDown_f(target);
+    });
+});
+if (catalog_btn_ShowMore != null) {
+    catalog_btn_ShowMore.addEventListener('click', function () {
+        var container_catalog = document.querySelector('.container_catalog');
+        var howManyItemsShowingNow = container_catalog.children.length - 1;
+    });
+}
+//click on Nike Red navigate to Dark Suit item page
+var nikeRed = document.querySelector('.promoLeft');
+if (nikeRed != null) {
+    nikeRed.addEventListener('click', function () {
+        localStorage.removeItem('targetIDForItemDetail');
+        localStorage.setItem("targetIDForItemDetail", JSON.stringify('80d32566-d81c-4ba0-9edf-0eceda3b4360'));
+    });
+}
+
+// Header responsive 
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunctionHeader() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+
+//section best offer
+
+// bestOffer changing photo by clicking arrow Up
+function bestOffer_changePhotoUp_f(item) {
+    //get id of item that rendring now
+    var itemIdOld = item.querySelector('.item-id').textContent;
+    var counter = 999;
+    var localSBestOffer = JSON.parse(localStorage.getItem('bestOffer'));
+    var localCatalog = JSON.parse(localStorage.getItem('catalog'));
+
+    //if cusomer want change left photo in bestoffer
+    if (item.querySelector('.item-bestOffer-left')) {
+        // firsty we find position best-offer.js
+        localSBestOffer.left.forEach(function (element, index) {
+            if (itemIdOld == element) {
+                counter = index;
+            }
+        });
+        //next item
+        counter = counter + 1;
+        // checking for diapason
+        if (counter >= localSBestOffer.left.length) {
+            counter = 0;
+        }
+        renderBestOfferLeft(counter, localCatalog, localSBestOffer);
+    }
+    //if cusomer want change right photo in bestoffer
+    else {
+            // firsty we find position best-offer.js
+            localSBestOffer.right.forEach(function (element, index) {
+                if (itemIdOld == element) {
+                    counter = index;
+                }
+            });
+            //next item
+            counter = counter + 1;
+            // checking for diapason
+            if (counter >= localSBestOffer.right.length) {
+                counter = 0;
+            }
+            //rendering new item
+            renderBestOfferRight(counter, localCatalog, localSBestOffer);
+        }
+}
+// bestOffer changing photo by clicking arrow Down
+function bestOffer_changePhotoDown_f(item) {
+    //get id of item that rendring now
+    var itemIdOld = item.querySelector('.item-id').textContent;
+    var counter = 999;
+    var localSBestOffer = JSON.parse(localStorage.getItem('bestOffer'));
+    var localCatalog = JSON.parse(localStorage.getItem('catalog'));
+
+    //if cusomer want change left photo in bestoffer
+    if (item.querySelector('.item-bestOffer-left')) {
+        // firsty we find position best-offer.js
+        localSBestOffer.left.forEach(function (element, index) {
+            if (itemIdOld == element) {
+                counter = index;
+            }
+        });
+        //next item
+        counter = counter - 1;
+        // checking for diapason
+        if (counter <= -1) {
+            counter = localSBestOffer.left.length - 1;
+        }
+        renderBestOfferLeft(counter, localCatalog, localSBestOffer);
+    }
+    //if cusomer want change right photo in bestoffer
+    else {
+            // firsty we find position best-offer.js
+            localSBestOffer.right.forEach(function (element, index) {
+                if (itemIdOld == element) {
+                    counter = index;
+                }
+            });
+            //next item
+            counter = counter - 1;
+            // checking for diapason
+            if (counter <= -1) {
+                counter = localSBestOffer.right.length - 1;
+            }
+            //rendering new item
+            renderBestOfferRight(counter, localCatalog, localSBestOffer);
+        }
+}
+
+// section Best offer (default render)
+function renderBestOffer() {
+    var itemLeft = document.querySelector('.bestoffer-main').children[0];
+    var itemRight = document.querySelector('.bestoffer-main').children[2];
+    var itemLeftPhoto = itemLeft.querySelector('img');
+    var itemRightPhoto = itemRight.querySelector('img');
+    var total = document.querySelector('.bestoffer-tottal');
+
+    //some variables 
+    var idL = 0,
+        idR = 0;
+    var localSBestOffer = JSON.parse(localStorage.getItem('bestOffer'));
+    var localCatalog = JSON.parse(localStorage.getItem('catalog'));
+    var idLeftPhoto = localSBestOffer.left[idL];
+    var idRightPhoto = localSBestOffer.right[idR];
+
+    //create objects with all data about rendered item
+    var leftData = -1,
+        rightData = -1;
+    localCatalog.forEach(function (element) {
+        if (element.id == idLeftPhoto) {
+            leftData = element;
+        }
+        if (element.id == idRightPhoto) {
+            rightData = element;
+        }
+    });
+
+    //set photos and info's
+    itemLeft.querySelector('.item-id').innerHTML = "" + leftData.id;
+    itemRight.querySelector('.item-id').innerHTML = "" + rightData.id;
+    itemLeftPhoto.setAttribute('src', "img/" + leftData.id + ".png");
+    itemRightPhoto.setAttribute('src', "img/" + rightData.id + ".png");
+    itemLeft.querySelector('.item-name').innerHTML = leftData.title;
+    itemRight.querySelector('.item-name').innerHTML = rightData.title;
+    itemLeft.querySelector('.item-price').innerHTML = "\xA3" + leftData.price;
+    itemRight.querySelector('.item-price').innerHTML = "\xA3" + rightData.price;
+    // create label new
+    if (itemLeft.querySelector('.label_new')) {
+        itemLeft.querySelector('.label_new').remove();
+    }
+    if (itemRight.querySelector('.label_new')) {
+        itemRight.querySelector('.label_new').remove();
+    }
+    // adding label new
+    if (leftData.hasNew == true) {
+        var lebelNew = document.createElement('div');
+        lebelNew.classList.add('label_new');
+        lebelNew.innerHTML = 'NEW';
+        itemLeftPhoto.before(lebelNew);
+    }
+    if (rightData.hasNew == true) {
+        var _lebelNew = document.createElement('div');
+        _lebelNew.classList.add('.label_new');
+        _lebelNew.innerHTML = 'NEW';
+        itemRightPhoto.before(_lebelNew);
+    }
+    //set total price
+    total.firstChild.textContent = "\xA3" + (leftData.price + rightData.price - localSBestOffer.discount).toFixed(2);
+    total.lastChild.textContent = "\xA3" + (leftData.price + rightData.price).toFixed(2);
+
+    //local storage contain info about bestOffer that now rengering on main page
+    var nowInBestOffer = {
+        left: leftData,
+        right: rightData
+    };
+    localStorage.setItem('nowInBestOffer', JSON.stringify(nowInBestOffer));
+}
+// bestOffer render changed photo by clicking arrow Up
+function renderBestOfferLeft(counter, localCatalog, localSBestOffer) {
+    //rendering new item
+    var itemLeft = document.querySelector('.bestoffer-main').children[0];
+    var itemLeftPhoto = itemLeft.querySelector('img');
+    var idLeftPhoto = localSBestOffer.left[counter];
+    //create objects with all data about rendered item
+    var leftData = -1;
+    localCatalog.forEach(function (element) {
+        if (element.id == idLeftPhoto) {
+            leftData = element;
+        }
+    });
+    itemLeft.querySelector('.item-id').innerHTML = "" + leftData.id;
+    itemLeftPhoto.setAttribute('src', "img/" + leftData.id + ".png");
+    itemLeft.querySelector('.item-name').innerHTML = leftData.title;
+    itemLeft.querySelector('.item-price').innerHTML = "\xA3" + leftData.price;
+    //update local storage
+    var nowInBestOffer = JSON.parse(localStorage.getItem('nowInBestOffer'));
+    nowInBestOffer.left = leftData;
+    localStorage.removeItem('nowInBestOffer');
+    localStorage.setItem('nowInBestOffer', JSON.stringify(nowInBestOffer));
+    //label new
+    if (itemLeft.querySelector('.label_new')) {
+        console.log('found');
+        itemLeft.querySelector('.label_new').remove();
+    }
+    if (leftData.hasNew == true) {
+        var lebelNew = document.createElement('div');
+        lebelNew.classList.add('label_new');
+        lebelNew.innerHTML = 'NEW';
+        itemLeftPhoto.before(lebelNew);
+    }
+    //update total price
+    reCountTotalPriceBestOffer();
+    showInfoInHeaderBag();
+}
+// bestOffer render changed photo by clicking arrow Down
+function renderBestOfferRight(counter, localCatalog, localSBestOffer) {
+    //rendering new item
+    var itemRight = document.querySelector('.bestoffer-main').children[2];
+    var itemRightPhoto = itemRight.querySelector('img');
+    var idRightPhoto = localSBestOffer.right[counter];
+    //create objects with all data about rendered item
+    var rightData = -1;
+    localCatalog.forEach(function (element) {
+        if (element.id == idRightPhoto) {
+            rightData = element;
+        }
+    });
+    //set photos and info's
+    itemRight.querySelector('.item-id').innerHTML = "" + rightData.id;
+    itemRightPhoto.setAttribute('src', "img/" + rightData.id + ".png");
+    itemRight.querySelector('.item-name').innerHTML = rightData.title;
+    itemRight.querySelector('.item-price').innerHTML = "\xA3" + rightData.price;
+    //update local storage
+    var nowInBestOffer = JSON.parse(localStorage.getItem('nowInBestOffer'));
+    nowInBestOffer.right = rightData;
+    localStorage.removeItem('nowInBestOffer');
+    localStorage.setItem('nowInBestOffer', JSON.stringify(nowInBestOffer));
+    //label new
+    if (itemRight.querySelector('.label_new')) {
+        console.log('found');
+        itemRight.querySelector('.label_new').remove();
+    }
+    if (rightData.hasNew == true) {
+        var lebelNew = document.createElement('div');
+        lebelNew.classList.add('.label_new');
+        lebelNew.innerHTML = 'NEW';
+        itemRightPhoto.before(lebelNew);
+    }
+    //update total price
+    reCountTotalPriceBestOffer();
+}
+//update total price after changing item in best offer section
+function reCountTotalPriceBestOffer() {
+    var total = document.querySelector('.bestoffer-tottal');
+    var localSBestOffer = JSON.parse(localStorage.getItem('bestOffer'));
+    var nowInBestOffer = JSON.parse(localStorage.getItem('nowInBestOffer'));
+    total.firstChild.textContent = "\xA3" + (nowInBestOffer.left.price + nowInBestOffer.right.price - localSBestOffer.discount).toFixed(2);
+    total.lastChild.textContent = "\xA3" + (nowInBestOffer.left.price + nowInBestOffer.right.price).toFixed(2);
+}
+//section best offer END
+
+// section new arrivals
+// section new arrivals (default render)
+function renderNewArrivals() {
+    var localCatalog = JSON.parse(localStorage.getItem('catalog'));
+    var container_newArivals = document.querySelector('.containerNewArivals');
+    //range catalog by date from new to old
+    localCatalog = _.reverse(_.sortBy(localCatalog, function (data) {
+        return Date.parse(data.dateAdded);
+    }));
+
+    for (var i = 0; i < container_newArivals.children.length; i++) {
+        var item = container_newArivals.children[i];
+        //set photos and info's
+        item.querySelector('.item-id').innerHTML = "" + localCatalog[i].id;
+        item.querySelector('img').setAttribute('src', "img/" + localCatalog[i].id + ".png");
+        item.querySelector('img').addEventListener('click', detailPageItem); //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
+        item.querySelector('.item-name').innerHTML = "<a href=\"itemDetail.html\"> " + localCatalog[i].title + " </a>";
+        item.querySelector('.item-name').addEventListener('click', detailPageItem); //for link to detail page. When user clicked on item, itemID adding to localStorage and then detail page render item by that itemID 
+        item.querySelector('.item-price').innerHTML = "\xA3" + localCatalog[i].price;
+        if (localCatalog[i].hasNew == true) {
+            var lebelNew = document.createElement('div');
+            lebelNew.classList.add('label_new');
+            lebelNew.innerHTML = 'NEW';
+            item.querySelector('img').before(lebelNew);
+        }
+    }
+}
+
+//When user clicked on item (e), itemID adding to localStorage and then detail page render item by that itemID 
+function detailPageItem(e) {
+    var targetID = e.target.closest('.item').querySelector('.item-id').textContent;
+    localStorage.removeItem('targetIDForItemDetail');
+    localStorage.setItem("targetIDForItemDetail", JSON.stringify(targetID));
+}
+// section new arrivals END
+
+function buyBestOffer() {
+    var IWantBuy = JSON.parse(localStorage.getItem('nowInBestOffer'));
+    var ShopingCart = JSON.parse(localStorage.getItem('ShopingCart'));
+    console.log(IWantBuy);
+    function AddToBag(Item) {
+        this.itemID = Item.id;
+        this.megaUniqId = Item.id;
+        if (Item.discountedPrice != null && Item.discountedPrice < Item.price) {
+            this.price = Item.discountedPrice;
+        }
+        if (Item.discountedPrice == null || Item.discountedPrice == Item.price) {
+            this.price = Item.price;
+        }
+        if (Item.sizes != 0) {
+            this.size = Item.sizes[0];
+            this.megaUniqId += Item.sizes[0];
+        }
+        if (Item.colors != 0) {
+            this.color = Item.colors[0];
+            this.megaUniqId += Item.colors[0];
+        }
+    }
+    var leftItem = new AddToBag(IWantBuy.left);
+    var rightItem = new AddToBag(IWantBuy.right);
+    if (ShopingCart != null) {
+        localStorage.removeItem('ShopingCart');
+        ShopingCart.push(leftItem);
+        ShopingCart.push(rightItem);
+    }
+    if (ShopingCart == null) {
+        ShopingCart = [];
+        ShopingCart.push(leftItem);
+        ShopingCart.push(rightItem);
+    }
+    localStorage.setItem('BestOfferFlag', 15);
+    localStorage.setItem('ShopingCart', JSON.stringify(ShopingCart));
+    showInfoInHeaderBag();
+    console.log(ShopingCart);
+}
+
+// ****************************************
+// functionality for catalog page
+
+
+if (document.querySelector('.container_catalog')) {
+    renderCatalog();
+}
+
+function renderCatalog() {
+
+    var localCatalog = JSON.parse(localStorage.getItem('catalog'));
+    var filtredCatalog = localCatalog;
+    //range catalog by date from new to old
+    filtredCatalog = _.reverse(_.sortBy(localCatalog, function (data) {
+        return Date.parse(data.dateAdded);
+    }));
+    //Filtered by “category” “women” and “fashion” “Casual style”
+    filtredCatalog = _.sortBy(filtredCatalog, function (category) {
+        if (category.category == 'women') {
+            return category.category;
+        }
+    });
+    //Filtered by “fashion” - “Casual style”
+    filtredCatalog = _.sortBy(filtredCatalog, function (style) {
+        if (style.fashion == 'Casual style') {
+            return style.fashion;
+        }
+    });
+
+    var container_catalog = document.querySelector('.container_catalog');
+    var itemsOnPage = 12;
+    var record = 0;
+    for (var i = 0; i < itemsOnPage; i++) {
+        //create elemnts for photo
+        var item = document.createElement('div');
+        var item_img = document.createElement('div');
+        var img = document.createElement('img');
+        var item_name = document.createElement('div');
+        var item_price = document.createElement('div');
+        var item_id = document.createElement('div');
+        var a = document.createElement('a');
+        a.setAttribute('href', 'itemDetail.html');
+        item.classList.add('item');
+        item_img.classList.add('item-img');
+        item_name.classList.add('item-name');
+        item_price.classList.add('item-price');
+        item_id.classList.add('item-id');
+        //set photos and info's
+        item_id.innerHTML = "" + filtredCatalog[record].id;
+        img.setAttribute('src', "img/" + filtredCatalog[record].id + ".png");
+        item_name.innerHTML = "<a href=\"itemDetail.html\">" + filtredCatalog[record].title + "</a>";
+        img.addEventListener('click', detailPageItem);
+        item_name.addEventListener('click', detailPageItem);
+        item_price.innerHTML = "\xA3" + filtredCatalog[record].price;
+        //if discount price less then price
+        if (filtredCatalog[record].price - filtredCatalog[record].discountedPrice != 0 && filtredCatalog[record].discountedPrice != null) {
+            item_price.innerHTML = "\xA3" + filtredCatalog[record].discountedPrice;
+        }
+        // if item new - supposed to be red label
+        if (filtredCatalog[record].hasNew == true) {
+            var lebelNew = document.createElement('div');
+            lebelNew.classList.add('label_new');
+            lebelNew.innerHTML = 'NEW';
+            item_img.append(lebelNew);
+        }
+        // if price different with discounted price - supposed to be crossed old price
+        if (filtredCatalog[record].price - filtredCatalog[record].discountedPrice != 0 && filtredCatalog[record].discountedPrice != null) {
+            var oldPrice = document.createElement('div');
+            oldPrice.classList.add('label_oldPrice');
+            oldPrice.innerHTML = "\xA3" + filtredCatalog[record].price;
+            item_price.prepend(oldPrice);
+        }
+        //append all elements
+        a.append(img);
+        item_img.append(a);
+        item.append(item_img);
+        item.append(item_name);
+        item.append(item_price);
+        item.append(item_id);
+        container_catalog.append(item);
+        record++;
+    }
+
+    console.log(container_catalog);
+}
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.querySelector("filter");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+function magnifyingGlass() {
+    var x = document.querySelector('.fa-search');
+    var y = document.querySelector('.inputForTablet');
+    if (y.className == 'inputForTablet') {
+        y.className += ' inputForTabletShow';
+    } else {
+        y.className = 'inputForTablet';
+    }
+}
+
+// adding behaviour for filters
+
+var allFilterOptions = document.getElementsByClassName('dropdown-content');
+if (allFilterOptions != undefined) {
+    //first loop going by categories of filters (fashion, color ...)
+    for (var i = 0; i < allFilterOptions.length; i++) {
+        var filterX = allFilterOptions[i];
+        //second loop going by subcategory of each category
+        for (var y = 0; y < filterX.children.length; y++) {
+            //click on subcategory
+            filterX.children[y].addEventListener('click', function () {
+                //we have to add class "active" to this subcategory but firstly remove all others class "active". Because only one subcategory can be "acive"
+                var current = this.parentNode.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+                var dropbtn = this.parentNode.parentNode.querySelector('.selectedFilter');
+                // we have to change category name if we choose any subcategory except (Not selected)
+                if (this.textContent != 'Not selected') {
+                    dropbtn.innerHTML = this.textContent;
+                    if (this.parentNode.parentNode.querySelector('.filterCategoryName').classList.contains('filterCategoryName_absolute') == false) {
+                        this.parentNode.parentNode.querySelector('.filterCategoryName').classList.add('filterCategoryName_absolute');
+                    }
+                }
+                // if we choose (Not selected) category name supposed to be default
+                if (this.textContent == 'Not selected') {
+                    dropbtn.innerHTML = "";
+                    if (this.parentNode.parentNode.querySelector('.filterCategoryName').classList.contains('filterCategoryName_absolute') == true) {
+                        this.parentNode.parentNode.querySelector('.filterCategoryName').classList.toggle('filterCategoryName_absolute');
+                    }
+                }
+            });
+        }
+    }
+}
+
+//Always update info in header 
+function showInfoInHeaderBag() {
+
+    var nowInBag = JSON.parse(localStorage.getItem('ShopingCart'));
+    if (nowInBag != undefined) {
+        var money = 0;
+        var quantity = nowInBag.length;
+
+        console.log(typeof nowInBag === "undefined" ? "undefined" : _typeof(nowInBag));
+        for (var _i = 0; _i < quantity; _i++) {
+            money = parseFloat(money) + parseFloat(nowInBag[_i].price);
+            console.log(money);
+        }
+        console.log(nowInBag);
+        document.querySelector('.bagprice').innerHTML = "\xA3 " + money;
+        document.querySelector('.bagquantity').innerHTML = " (" + quantity + ")";
+    }
+    if (nowInBag == undefined || nowInBag == null) {
+        document.querySelector('.bagprice').innerHTML = "\xA3 0";
+        document.querySelector('.bagquantity').innerHTML = " (0)";
+    }
+}
