@@ -302,6 +302,7 @@ function emptyBag(){
     if(allGoods.childElementCount>0){
         localStorage.removeItem('ShopingCart')
         localStorage.removeItem('idDiscount')
+        document.querySelector('.itemsInBag').innerHTML = `   <span class="defaultInfo">Your shopping bag is empty. Use Catalog to add new items</span> `
         renderTotalPrice()
         showInfoInHeaderBag()
     }
@@ -309,8 +310,9 @@ function emptyBag(){
 
 function checkout(){
     let allGoods = document.querySelector('.itemsInBag')
+    let x        = document.querySelector('.defaultInfo')
     document.querySelector('.appliedDiscount').innerHTML=''
-    if(allGoods.childElementCount>0){
+    if(x==null){
         localStorage.removeItem('ShopingCart')
         localStorage.removeItem('idDiscount')
         allGoods.innerHTML = "  <span class=\"defaultInfo\">  Thank you for your purchase </span>" ;

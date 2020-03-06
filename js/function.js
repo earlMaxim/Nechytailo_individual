@@ -462,13 +462,23 @@ function renderCatalog(){
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 function myFunction() {
-    var x = document.querySelector("filter");
+    let x = document.querySelector("filter");
     if (x.className === "topnav") {
       x.className += " responsive";
     } else {
       x.className = "topnav";
     }
   }
+function magnifyingGlass(){
+    let x = document.querySelector('.fa-search')
+    let y = document.querySelector('.inputForTablet')
+    if(y.className == 'inputForTablet'){
+        y.className += ' inputForTabletShow'
+    } else{
+        y.className = 'inputForTablet'
+    }
+
+}
 
 
 
@@ -513,20 +523,6 @@ if(allFilterOptions != undefined){
 
 //Always update info in header 
 function showInfoInHeaderBag(){
-    // let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
-    // console.log(nowInBag)
-    // if(nowInBag!=undefined){
-    //     let money   = 0;
-    //     let quantity= nowInBag.length;
-    //     console.log(quantity)
-    //     for(let i =0; i<quantity;i++){
-    //         money = parseFloat(money)+ parseFloat(nowInBag[i].price)
-    //         console.log('money')
-    //     }
-    //     console.log(parseInt(nowInBag[0].price))
-    //     document.querySelector('.bagprice').innerHTML    =`£ ${money}`
-    //     document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
-    // }
 
     let nowInBag                      = JSON.parse(localStorage.getItem('ShopingCart'));
     if(nowInBag!=undefined){
@@ -539,20 +535,10 @@ function showInfoInHeaderBag(){
             console.log(money)
         }
         console.log(nowInBag)
-        // console.log(parseInt(nowInBag[0].price))
         document.querySelector('.bagprice').innerHTML    =`£ ${money}`
         document.querySelector('.bagquantity').innerHTML = ` (${quantity})`
     }
     if(nowInBag==undefined || nowInBag==null){
-        // let money   = 0;
-        // let quantity= nowInBag.length;
-        // console.log(quantity)
-        // for(let i =0; i<quantity;i++){
-        //     money = parseFloat(money)+ parseFloat(nowInBag[i].price)
-        //     console.log('money')
-        // }
-        // console.log(nowInBag)
-        // console.log(parseInt(nowInBag[0].price))
         document.querySelector('.bagprice').innerHTML    =`£ 0`
         document.querySelector('.bagquantity').innerHTML = ` (0)`
     }

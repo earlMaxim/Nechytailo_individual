@@ -83,6 +83,15 @@ footer{
         background-size: auto;
         justify-content: center;
     }
+    .item{
+        min-width: 240px;
+    }
+    .promoLeft{
+        min-width: 240px;
+    }
+    .newArrivals_btn_allArrivals{
+        min-width: 220px;
+    }
 
 }
 /* table layout */
@@ -140,6 +149,14 @@ footer{
     padding-top: 80px;
     padding-bottom: 100px;
     border-bottom: solid 1px #e5e5e5;
+}
+.bestoffer-main>.item>.item-name{
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+.bestoffer-main>.item{
+    position: relative;
 }
 .category-text-bold{
     font-family: 'OpenSans',sans-serif;

@@ -281,6 +281,12 @@ a:hover{
 
 /* table layout */
 @media (min-width: 768px) and (max-width: 1024px){
+    .inputForTablet{
+        display: none;
+    }
+    .inputForTabletShow{
+        display: block;
+    }
 .ft-italicText{
     display: none;
 }
